@@ -1,24 +1,25 @@
 class Solution {
 public:
     int maxScore(string s) {
-        int n=s.length();
-        int result=INT_MIN;
-
-        for(int i=0;i<=n-2;i++){
-            int count_zero=0;
-            for(int j=0;j<=i;j++){
-                if(s[j]=='0'){
-                    count_zero++;
-                }
-            }
-            int count_one=0;
-            for(int j=i+1;j<n;j++){
-                if(s[j]=='1'){
-                    count_one++;
-                }
-            }
-            result=max(result,count_zero+count_one);
+        int n = s.length();
+        int total_one = 0;
+        for (char ch : s) {
+            if (ch == '1')
+                total_one++;
         }
-        return result;
+
+        int count_zero = 0;
+        int count_one_left = 0;
+        int ans = 0;
+        for (int i = 0; i < n - 1; i++) {
+            if (s[i] == '0')
+                count_zero++;
+            else
+                count_one_left++;
+
+            ans = max(ans, count_zero + (total_one - count_one_left));
+        }
+
+        return ans;
     }
 };
