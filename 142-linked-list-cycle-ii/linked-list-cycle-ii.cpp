@@ -1,38 +1,31 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(head==NULL || head->next==NULL)
+        if(head==NULL || head->next==NULL){
             return NULL;
-        
+        }
         ListNode*slow=head;
         ListNode*fast=head;
-        
-        while(fast!=NULL&& fast->next!=NULL){
+        bool hasCycle=false;
+
+        // pahle cycle detect karo (Floyd's algorithm)
+        while(fast!=NULL && fast->next!=NULL){
             slow=slow->next;
             fast=fast->next->next;
             if(slow==fast){
+                hasCycle=true;
                 break;
             }
         }
-            if(slow!=fast)
-                return NULL;
-                ListNode*P=head;
-            while(P!=slow){
-                P=P->next;
-                slow=slow->next;
-            }
-            return slow;
-        }
-        
 
-        
-    
+        if(!hasCycle) return NULL;
+
+        // ab cycle ka starting point dhoondo
+        ListNode*p=head;
+        while(p!=slow){
+            p=p->next;
+            slow=slow->next;
+        }
+        return p;
+    }
 };
