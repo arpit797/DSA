@@ -16,6 +16,6 @@ public:
             }
         }
         
-        return nums[low];  // ya nums[high], dono same honge yahan
+        return nums[high];  // ya nums[high], dono same honge yahan
     }
 };
